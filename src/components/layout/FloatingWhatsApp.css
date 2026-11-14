@@ -1,0 +1,24 @@
+.fab {
+  position: fixed;
+  right: max(var(--s-5), env(safe-area-inset-right));
+  bottom: max(var(--s-5), env(safe-area-inset-bottom));
+  z-index: 40;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--green);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 194, 123, 0.35), 0 14px 34px -8px rgba(0, 168, 107, 0.75);
+  opacity: 0;
+  transform: translate3d(0, 20px, 0) scale(0.9);
+  pointer-events: none;
+  transition:
+    opacity 0.35s var(--ease),
+    transform 0.35s var(--ease),
+    background-color var(--dur-fast) ease;
+}
+.fab.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+.fab.is-visible:hover { background: var(--green-hover); transform: translate3d(0, -3px, 0); }
+.fab.is-visible:active { transform: translate3d(0, 1px, 0); }

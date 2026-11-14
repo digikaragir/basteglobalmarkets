@@ -1,0 +1,71 @@
+.footer {
+  border-top: 1px solid var(--line);
+  background: var(--bg-raised);
+}
+
+.footer__inner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-7);
+  padding-block: var(--s-7) var(--s-5);
+}
+
+.footer__brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.footer__disclaimer {
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--text-subtle);
+  max-width: 72ch;
+}
+
+.footer__copy {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-xs);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono-xs);
+  color: var(--text-subtle);
+  white-space: nowrap;
+}
+
+.footer__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-5);
+  padding-block: var(--s-3) var(--s-6);
+  border-top: 1px solid var(--line);
+}
+
+.footer__legal { display: flex; flex-wrap: wrap; gap: 0 var(--s-6); }
+.footer__legal a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono-xs);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color var(--dur-fast) ease;
+}
+.footer__legal a:hover { color: var(--green); }
+
+@media (max-width: 1023px) {
+  .footer__inner { grid-template-columns: 1fr; gap: var(--s-4); }
+}
+@media (max-width: 767px) {
+  /* Extra bottom room so the floating WhatsApp button never covers the text */
+  .footer__bar { padding-bottom: calc(var(--s-10) + env(safe-area-inset-bottom)); }
+  .footer__copy { white-space: normal; }
+}

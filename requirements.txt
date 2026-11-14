@@ -1,0 +1,45 @@
+BASTE GLOBAL MARKETS — PROJECT REQUIREMENTS
+============================================
+
+This is a React (JavaScript) project, so dependencies are installed with npm,
+not pip. The exact package list lives in package.json. This file lists what
+you need on your machine and the steps to run it.
+
+SYSTEM REQUIREMENTS
+-------------------
+- Node.js   >= 18  (recommended: 20 LTS or 22 LTS)   https://nodejs.org
+- npm       >= 9   (comes with Node.js)
+- VS Code   (any recent version)
+
+NPM DEPENDENCIES (installed automatically by `npm install`)
+-----------------------------------------------------------
+Runtime:
+  react            ^18.3.1
+  react-dom        ^18.3.1
+Dev / build:
+  vite                  ^5.4.11
+  @vitejs/plugin-react  ^4.3.4
+
+Fonts (loaded from Google Fonts in index.html, no install needed):
+  Archivo, JetBrains Mono
+
+RECOMMENDED VS CODE EXTENSIONS
+------------------------------
+- ES7+ React/Redux/React-Native snippets (dsznajder.es7-react-js-snippets)
+- Prettier - Code formatter (esbenp.prettier-vscode)
+- ESLint (dbaeumer.vscode-eslint)
+
+SETUP & RUN
+-----------
+1. Unzip the folder and open it in VS Code (File > Open Folder).
+2. Open the terminal in VS Code (Ctrl + `).
+3. Install packages:          npm install
+4. Start the dev server:      npm run dev
+   -> opens http://localhost:5173
+5. Production build:          npm run build     (output in /dist)
+6. Preview the build:         npm run preview
+
+DEPLOY
+------
+Upload the /dist folder to Netlify, Vercel, Render (static site) or any
+static host. Build command: npm run build   Publish directory: dist

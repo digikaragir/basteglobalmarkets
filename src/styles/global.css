@@ -1,0 +1,195 @@
+/* ============ Font fallbacks (metric-matched to cut layout shift while web fonts load) ============ */
+@font-face {
+  font-family: 'Archivo Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Helvetica');
+  size-adjust: 101%;
+  ascent-override: 88%;
+  descent-override: 21%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'JetBrains Mono Fallback';
+  src: local('Courier New'), local('Courier');
+  size-adjust: 100%;
+  ascent-override: 102%;
+  descent-override: 30%;
+  line-gap-override: 0%;
+}
+
+/* ============ Design tokens ============ */
+:root {
+  /* Colour */
+  --bg: #0a0a0a;
+  --bg-raised: #0d0e10;
+  --bg-contact: #121316;
+  --surface: #111215;
+
+  --cream: #fbf9f5;
+  --text: #fafafa;
+  --text-muted: rgba(255, 255, 255, 0.62);
+  --text-subtle: rgba(255, 255, 255, 0.52); /* small informational text — passes 4.5:1 on every surface */
+  --text-faint: rgba(255, 255, 255, 0.4);   /* decorative only (separators, large watermark-ish text) */
+
+  --green: #00a86b;
+  --green-hover: #00c27b;
+  --green-soft: rgba(0, 168, 107, 0.08);
+  --green-line: rgba(0, 168, 107, 0.4);
+  --red: #e5484d;
+  --gold: #d9b15a; /* gold-bar illustration only */
+
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.2);
+
+  --shadow-card: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+  --shadow-green: 0 10px 34px -10px rgba(0, 168, 107, 0.65);
+
+  /* Type */
+  --font-sans: 'Archivo', 'Archivo Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', Menlo, Consolas, monospace;
+
+  --fs-display: clamp(3.25rem, 10vw, 8rem);
+  --fs-h2: clamp(2.4rem, 5.4vw, 4.25rem);
+  --fs-h3: clamp(1.5rem, 2.6vw, 2rem);
+  --fs-lead: clamp(1.05rem, 1.6vw, 1.2rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-mono: 0.75rem;
+  --fs-mono-xs: 0.6875rem; /* 11px — the site-wide floor */
+
+  --lh-display: 0.95;
+  --lh-h2: 1.02;
+  --lh-h3: 1.15;
+  --lh-lead: 1.65;
+  --lh-body: 1.6;
+  --lh-small: 1.55;
+
+  --tr-display: -0.045em;
+  --tr-h2: -0.035em;
+  --tr-h3: -0.02em;
+  --tr-mono: 0.22em;
+  --tr-mono-xs: 0.18em;
+
+  /* Spacing (8px base) */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
+  --s-11: 160px;
+
+  --section-pad: clamp(5rem, 11vw, 9rem);
+  --card-pad: clamp(1.5rem, 3vw, 2.25rem);
+  --grid-gap: 24px;
+
+  /* Shape */
+  --radius-card: 6px;
+  --radius-tag: 4px;
+  --radius-btn: 6px;
+  --radius-pill: 999px;
+
+  /* Cursors: solid red arrow + hand, 23px, no outline (SVG, PNG fallback). Hotspot = arrow tip / fingertip. */
+  --cursor-default: url('/cursors/arrow.svg') 3 2, url('/cursors/arrow.png') 3 2, auto;
+  --cursor-pointer: url('/cursors/pointer.svg') 8 2, url('/cursors/pointer.png') 8 2, pointer;
+
+  /* Layout */
+  --nav-h: 72px;
+  --container: 1240px;
+  --gutter: clamp(1.25rem, 4vw, 2rem);
+  --measure: 66ch;
+}
+
+@media (max-width: 767px) {
+  :root { --nav-h: 64px; --grid-gap: 16px; }
+}
+
+/* ============ Reset ============ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+@supports (overflow-x: clip) {
+  body { overflow-x: clip; } /* clip keeps position: sticky working, unlike hidden */
+}
+
+h1, h2, h3 { text-wrap: balance; font-weight: 800; }
+p { text-wrap: pretty; }
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font: inherit; background: none; border: 0; color: inherit; }
+img, svg { display: block; max-width: 100%; }
+
+.num, .tabular { font-variant-numeric: tabular-nums; }
+
+/* Custom red cursor: mouse/trackpad only (touch devices never show a cursor) */
+@media (hover: hover) and (pointer: fine) {
+  html { cursor: var(--cursor-default); }
+  a[href], button, [role='button'], label, summary, .btn { cursor: var(--cursor-pointer); }
+}
+
+::selection { background: var(--green); color: #fff; }
+
+:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 2px; }
+main:focus { outline: none; } /* focus target for the skip link only */
+
+/* ============ Layout helpers ============ */
+.container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
+
+.section { padding-block: var(--section-pad); }
+.section--alt { border-top: 1px solid var(--line); }
+
+.text-green { color: var(--green); }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--green);
+}
+.eyebrow__line { width: 40px; height: 1px; background: var(--green); }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--s-4);
+  top: -100px;
+  z-index: 100;
+  background: var(--green);
+  color: #fff;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--radius-tag);
+  font-weight: 600;
+}
+.skip-link:focus { top: var(--s-4); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

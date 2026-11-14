@@ -1,0 +1,21 @@
+{
+  "name": "baste-global-markets",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Baste Global Markets — Forex, Commodities & Indian F&O. Trading desk, courses and mentorship by Somnath Baste.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lightweight-charts": "5.2.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11"
+  }
+}

@@ -1,0 +1,43 @@
+.section-header { max-width: 780px; margin-bottom: clamp(var(--s-7), 6vw, var(--s-8)); }
+
+.section-header .eyebrow__line { transform-origin: left; }
+.section-header.is-visible .eyebrow__line { animation: drawX var(--dur-slow) var(--ease) both; }
+
+.section-header__title {
+  margin-top: var(--s-5);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--tr-h2);
+  font-weight: 800;
+  color: var(--cream);
+}
+
+.section-header__desc {
+  margin-top: var(--s-5);
+  max-width: 60ch;
+  color: var(--text-muted);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+}
+
+/* Accent word with an underline that draws in once the heading is revealed */
+.u-draw { position: relative; display: inline-block; color: var(--green); }
+.u-draw::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.04em;
+  height: max(2px, 0.05em);
+  background: var(--green);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.section-header.is-visible .u-draw::after {
+  animation: drawX var(--dur-slow) var(--ease) 0.45s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .u-draw::after { transform: scaleX(1); }
+}

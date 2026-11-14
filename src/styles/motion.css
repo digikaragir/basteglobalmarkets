@@ -1,0 +1,60 @@
+/* =====================================================================
+   MOTION SYSTEM — tune the whole site's feel from these tokens.
+   Durations/delays used by components all reference these variables.
+   ===================================================================== */
+:root {
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.45, 0.5, 1);
+
+  --dur-fast: 0.25s;   /* hovers, nav underline */
+  --dur: 0.7s;         /* reveals */
+  --dur-slow: 0.9s;    /* hero mask lines, underline draws */
+
+  --reveal-y: 24px;    /* reveal travel distance */
+  --stagger: 0.1s;     /* default sibling stagger */
+
+  --hero-step: 0.09s;  /* gap between hero load-in steps: 5 × 0.09 + 0.5 = 0.95s total */
+  --hero-dur: 0.5s;
+}
+@media (max-width: 767px) {
+  :root { --reveal-y: 16px; --dur: 0.6s; }
+}
+
+/* ---------- Reveal on enter (IntersectionObserver adds .is-visible) ----------
+   Keyframe with `backwards` fill (not a transition): once it finishes, the
+   element's own transform/transition rules (e.g. card hover lift) take over. */
+.reveal { opacity: 0; }
+.reveal.is-visible {
+  opacity: 1;
+  animation: revealUp var(--dur) var(--ease) var(--delay, 0s) backwards;
+}
+@keyframes revealUp {
+  from { opacity: 0; transform: translate3d(0, var(--reveal-y), 0); }
+}
+
+/* ---------- Shared keyframes ---------- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes maskUp {
+  from { transform: translate3d(0, 108%, 0); }
+  to { transform: none; }
+}
+@keyframes drawX {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ---------- Reduced motion: everything visible, nothing moves ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal, .reveal.is-visible { opacity: 1; animation: none; }
+}

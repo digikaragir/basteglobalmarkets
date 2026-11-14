@@ -1,0 +1,74 @@
+.markets-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--grid-gap);
+  align-items: stretch; /* equal-height cards per row */
+}
+
+/* Asymmetric layout: 7/5, then 5/7 */
+.market-card:nth-child(1) { grid-column: span 7; }
+.market-card:nth-child(2) { grid-column: span 5; }
+.market-card:nth-child(3) { grid-column: span 5; }
+.market-card:nth-child(4) { grid-column: span 7; }
+
+.market-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  padding: var(--card-pad);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  transition:
+    border-color var(--dur-fast) ease,
+    transform var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) ease;
+}
+.market-card:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+.market-card:hover .mv { border-color: rgba(255, 255, 255, 0.14); }
+
+.market-card--featured {
+  background: linear-gradient(180deg, rgba(0, 168, 107, 0.07), rgba(0, 168, 107, 0.02)), var(--surface);
+  border-color: rgba(0, 168, 107, 0.25);
+}
+.market-card--featured:hover { border-color: rgba(0, 168, 107, 0.55); }
+
+.market-card__top {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-xs);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+}
+.market-card__num { color: var(--green); }
+.market-card__meta { color: var(--text-subtle); text-align: right; }
+
+.market-card__title {
+  margin-top: var(--s-2);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  line-height: var(--lh-h3);
+  letter-spacing: var(--tr-h3);
+  color: var(--cream);
+}
+
+.market-card__body {
+  margin-top: calc(var(--s-3) * -1);
+  max-width: 62ch;
+  color: var(--text-muted);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+.market-card__cta { align-self: flex-start; margin-top: auto; min-height: 44px; }
+
+@media (max-width: 767px) {
+  .market-card:nth-child(n) { grid-column: 1 / -1; }
+}

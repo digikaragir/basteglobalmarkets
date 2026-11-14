@@ -1,0 +1,78 @@
+.install {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono-xs);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color var(--dur-fast) ease, border-color var(--dur-fast) ease, background-color var(--dur-fast) ease;
+}
+.install svg { color: var(--green); transition: transform var(--dur-fast) var(--ease); }
+.install:hover { color: var(--cream); }
+.install:hover svg { transform: translateY(2px); }
+
+/* Desktop navbar: quiet text button that matches the nav links */
+.install--nav { color: var(--text-muted); }
+
+/* Mobile menu + footer: outlined chip */
+.install--menu,
+.install--footer {
+  padding: 0 var(--s-4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+}
+.install--menu { justify-content: center; min-height: 52px; width: 100%; color: var(--cream); }
+.install--menu:hover, .install--footer:hover { border-color: var(--green); background: var(--green-soft); }
+
+/* ---------- iOS Add-to-Home-Screen guide ---------- */
+.ios-guide {
+  margin: auto auto max(var(--s-5), env(safe-area-inset-bottom));
+  width: min(420px, calc(100% - 2 * var(--gutter)));
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--bg-contact);
+  color: var(--text);
+  box-shadow: var(--shadow-card);
+}
+.ios-guide[open] { animation: fadeUp 0.35s var(--ease) both; }
+.ios-guide::backdrop { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); }
+
+.ios-guide__inner { padding: var(--s-5); }
+.ios-guide__head { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); }
+.ios-guide__head h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; color: var(--cream); }
+.ios-guide__close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  color: var(--text-muted);
+}
+
+.ios-guide__steps { margin-top: var(--s-4); display: flex; flex-direction: column; gap: var(--s-3); list-style: none; }
+.ios-guide__steps li {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  color: var(--text-muted);
+}
+.ios-guide__steps strong { color: var(--cream); font-weight: 600; }
+.ios-guide__icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--green-soft);
+  color: var(--green);
+}
+.ios-guide__note { margin-top: var(--s-4); font-size: var(--fs-small); color: var(--text-subtle); }

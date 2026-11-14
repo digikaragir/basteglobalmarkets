@@ -1,0 +1,190 @@
+.hero {
+  position: relative;
+  padding-top: calc(var(--nav-h) + clamp(3.5rem, 8vw, 6rem));
+  overflow: hidden;
+  background: var(--bg-raised);
+  isolation: isolate;
+}
+
+/* ---------- Background layers ---------- */
+.hero__bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+
+.hero__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: center top;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 38%, #000 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 38%, #000 25%, transparent 75%);
+}
+
+.hero__glow-wrap {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  width: 0;
+  height: 0;
+}
+.hero__glow {
+  position: absolute;
+  left: -450px;
+  top: -250px;
+  width: 900px;
+  height: 500px;
+  background: radial-gradient(ellipse at center, rgba(0, 168, 107, 0.12), transparent 65%);
+  will-change: transform;
+}
+
+.hero__watermark {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  translate: -50% -50%;
+  font-size: clamp(8rem, 30vw, 26rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.028);
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Watermark parallax: drifts down (slower than the page, max 60px) and fades as the hero scrolls away */
+@keyframes watermarkOut {
+  to { transform: translate3d(0, 60px, 0); opacity: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .hero__watermark {
+      animation: watermarkOut linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0px 85vh;
+    }
+  }
+  /* JS fallback: useScrollProgress writes --p (0 → 1) on .hero */
+  .hero.has-js-progress .hero__watermark {
+    transform: translate3d(0, calc(var(--p, 0) * 60px), 0);
+    opacity: calc(1 - var(--p, 0) * 1.4);
+  }
+}
+
+/* ---------- Content ---------- */
+.hero__content { position: relative; text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+/* Load-in sequence: each step waits --n × --hero-step. Total < 1s. */
+.hero__step { animation: fadeUp var(--hero-dur) var(--ease) both; animation-delay: calc(var(--n) * var(--hero-step)); }
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.hero__eyebrow span { width: 40px; height: 1px; background: var(--green); }
+
+.hero__title {
+  margin-top: var(--s-6);
+  font-size: var(--fs-display);
+  font-weight: 800;
+  line-height: var(--lh-display);
+  letter-spacing: var(--tr-display);
+  color: var(--cream);
+}
+
+/* Mask reveal: the text slides up from behind its own clipped line box */
+.hero__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.1em;   /* room for descenders inside the clip */
+  margin-bottom: -0.1em;
+}
+.hero__line-inner {
+  display: inline-block;
+  animation: maskUp calc(var(--hero-dur) + 0.1s) var(--ease) both;
+  animation-delay: calc(var(--n) * var(--hero-step));
+}
+
+.accent-dot { color: var(--green); }
+
+.hero__desc {
+  margin-top: var(--s-6);
+  max-width: 62ch;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-muted);
+}
+.hero__desc strong { color: #fff; font-weight: 700; }
+
+.hero__tags {
+  margin-top: var(--s-5);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-2);
+}
+.hero__tags li {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-xs);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono-xs);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-tag);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.hero__ctas {
+  margin-top: var(--s-7);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-4);
+}
+
+/* ---------- Bottom info strip ---------- */
+.hero__strip {
+  position: relative;
+  margin-top: clamp(var(--s-8), 8vw, var(--s-9));
+  padding-block: var(--s-5);
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--s-5);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-xs);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+.hero__strip > :nth-child(2) { text-align: center; }
+.hero__strip > :nth-child(3) { text-align: right; }
+
+@media (max-width: 1023px) {
+  .hero__strip { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: var(--s-2); }
+  .hero__strip > :nth-child(n) { text-align: center; }
+}
+
+@media (max-width: 767px) {
+  .hero__eyebrow { font-size: var(--fs-mono-xs); letter-spacing: var(--tr-mono-xs); text-align: center; }
+  .hero__eyebrow span { display: none; }
+  .hero__desc { font-size: var(--fs-body); }
+  .hero__strip { letter-spacing: 0.1em; }
+  .hero__ctas { width: 100%; flex-direction: column; }
+  .hero__ctas .btn { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__line-inner, .hero__step { animation: none; }
+}

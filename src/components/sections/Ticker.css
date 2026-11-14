@@ -1,0 +1,70 @@
+.ticker {
+  position: relative;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-raised);
+}
+
+.ticker__viewport {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 45s linear infinite;
+}
+.ticker:hover .ticker__track,
+.ticker:focus-within .ticker__track { animation-play-state: paused; }
+
+.ticker__group { display: flex; }
+
+.ticker__item {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-4) 0 var(--s-4) var(--s-6);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.ticker__sym { color: var(--cream); letter-spacing: 0.12em; font-weight: 600; }
+.ticker__venue {
+  color: var(--text-subtle);
+  font-size: var(--fs-mono-xs);
+  letter-spacing: var(--tr-mono-xs);
+  text-transform: uppercase;
+}
+.ticker__sep { color: var(--green); font-size: var(--fs-mono-xs); margin-left: var(--s-5); }
+
+.ticker__note {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--gutter) 0 88px;
+  background: linear-gradient(90deg, transparent, var(--bg-raised) 72px); /* 72px fade, then solid behind the label */
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-xs);
+  letter-spacing: var(--tr-mono-xs);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Reduced motion: no movement — the strip becomes a swipe/scrollable row instead */
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track { animation: none; }
+  .ticker__viewport { overflow-x: auto; mask-image: none; -webkit-mask-image: none; }
+  .ticker__group[aria-hidden='true'] { display: none; }
+}

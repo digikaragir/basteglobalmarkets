@@ -1,0 +1,46 @@
+.lesson-chart {
+  position: relative;
+  height: clamp(320px, 42vw, 440px); /* fixed height reserves space: no layout shift */
+}
+
+.lesson-chart__canvas {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.6s var(--ease);
+}
+.lesson-chart__canvas.is-ready { opacity: 1; }
+
+/* Quiet skeleton while the library loads */
+.lesson-chart__loading {
+  position: absolute;
+  inset: 12px;
+  border-radius: var(--radius-tag);
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 0 / 100% 25%,
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent) 0 0 / 200% 100%;
+  animation: chartShimmer 1.6s linear infinite;
+}
+@keyframes chartShimmer {
+  from { background-position: 0 0, 100% 0; }
+  to { background-position: 0 0, -100% 0; }
+}
+
+.lesson-chart__failed {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--s-5);
+  text-align: center;
+  color: var(--text-subtle);
+  font-size: var(--fs-small);
+}
+
+@media (max-width: 767px) {
+  .lesson-chart { height: 300px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lesson-chart__loading { animation: none; }
+}

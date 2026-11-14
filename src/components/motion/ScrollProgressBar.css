@@ -1,0 +1,25 @@
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 2px;
+  z-index: 60;
+  background: var(--green);
+  box-shadow: 0 0 10px rgba(0, 168, 107, 0.6);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress:not(.is-js) {
+      animation: progressGrow linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+
+@keyframes progressGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}

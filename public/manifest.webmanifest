@@ -1,0 +1,29 @@
+{
+  "id": "/",
+  "name": "Baste Global Markets",
+  "short_name": "Baste Markets",
+  "description": "Trading education from an active desk — forex, commodities and Indian F&O. Courses and 1-on-1 mentorship by Somnath Baste.",
+  "start_url": "/?source=app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": ["education", "finance"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "screenshots": [
+    { "src": "/screenshots/wide.png", "sizes": "1280x720", "type": "image/png", "form_factor": "wide", "label": "Baste Global Markets on desktop" },
+    { "src": "/screenshots/narrow.png", "sizes": "390x844", "type": "image/png", "form_factor": "narrow", "label": "Baste Global Markets on mobile" }
+  ],
+  "shortcuts": [
+    { "name": "Courses", "short_name": "Courses", "url": "/#courses", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Contact Somnath", "short_name": "Contact", "url": "/#contact", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

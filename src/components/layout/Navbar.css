@@ -1,0 +1,179 @@
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    backdrop-filter 0.3s ease,
+    -webkit-backdrop-filter 0.3s ease;
+}
+
+.nav--scrolled {
+  background: rgba(10, 10, 10, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom-color: var(--line);
+}
+
+/* Open mobile menu: solid bar, and NO backdrop-filter — a filter would make the header the
+   containing block for the fixed full-screen menu and squash it into the 64px bar. */
+.nav--open,
+.nav--open.nav--scrolled {
+  background: var(--bg);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: var(--line);
+}
+
+.nav__inner {
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-5);
+}
+
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 1.0625rem;
+  color: #fff;
+}
+
+.nav__center {
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.nav__live {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  color: var(--green);
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-xs);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono-xs);
+  white-space: nowrap;
+}
+
+.nav__dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+}
+/* Pulse uses transform + opacity on a pseudo ring (cheaper than animating box-shadow) */
+.nav__dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--green);
+  animation: livePulse 2s var(--ease) infinite;
+}
+@keyframes livePulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  70%, 100% { transform: scale(3.2); opacity: 0; }
+}
+
+.nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--text-muted);
+  transition: color var(--dur-fast) ease;
+}
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  height: 1px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s var(--ease);
+}
+.nav__link:hover, .nav__link.is-active { color: var(--cream); }
+.nav__link:hover::after, .nav__link.is-active::after { transform: scaleX(1); transform-origin: left; }
+
+.nav__toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  margin-right: -10px;
+  color: var(--cream);
+  border-radius: var(--radius-tag);
+}
+
+.nav__mobile { display: none; }
+
+@media (max-width: 1023px) {
+  .nav__center, .nav__cta { display: none; }
+  .nav__toggle { display: inline-flex; }
+
+  .nav__mobile {
+    position: fixed;
+    inset: var(--nav-h) 0 0 0;
+    background: var(--bg);
+    padding: var(--s-6) var(--gutter) max(var(--s-6), env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    overflow-y: auto;
+    animation: menuIn 0.3s var(--ease) both;
+  }
+  .nav__mobile[hidden] { display: none; }
+
+  .nav__mobile > .nav__live { margin-bottom: var(--s-4); }
+
+  .nav__mobile-link {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-4);
+    padding-block: var(--s-4);
+    border-bottom: 1px solid var(--line);
+    font-size: clamp(2rem, 9vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--cream);
+  }
+  .nav__mobile-link span {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--green);
+  }
+  .nav__mobile-link.is-active { color: var(--green); }
+
+  .nav__mobile-link,
+  .nav__mobile-foot { animation: fadeUp 0.5s var(--ease) both; animation-delay: calc(0.08s + var(--i) * 60ms); }
+
+  .nav__mobile-foot { margin-top: auto; padding-top: var(--s-6); display: flex; flex-direction: column; gap: var(--s-3); }
+  .nav__mobile-cta { width: 100%; }
+}
+
+@keyframes menuIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
