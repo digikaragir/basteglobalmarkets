@@ -3,9 +3,9 @@ import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'node:url';
 
 // Public site URL (no trailing slash) used by canonical / Open Graph / JSON-LD in the HTML pages.
-// PLACEHOLDER: replace with the real domain (or set VITE_SITE_URL in your host's env vars),
-// and keep public/robots.txt + public/sitemap.xml in sync.
-process.env.VITE_SITE_URL ??= 'https://www.bastegloballmarkets.com';
+// Live domain. If it ever changes, also update public/CNAME, public/robots.txt and public/sitemap.xml,
+// and VITE_SITE_URL in .github/workflows/deploy.yml.
+process.env.VITE_SITE_URL ??= 'https://basteglobalmarkets.in';
 
 const page = (p) => fileURLToPath(new URL(p, import.meta.url));
 

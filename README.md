@@ -24,11 +24,15 @@ Baste Global Markets is **not registered with SEBI** as an Investment Adviser or
 
 The legal pages (`/disclaimer/`, `/privacy/`, `/terms/`) are written to match what the site does today. **Have a lawyer review them**, and update them if you add analytics, forms or payments.
 
-## Before you deploy
+## Hosting & deploys (GitHub Pages)
 
-1. **Domain** — it is a placeholder. Set it in `vite.config.js` (`VITE_SITE_URL`, or define it in your host's environment variables), `public/robots.txt` and `public/sitemap.xml`.
-2. **HTTPS** — the installable app and offline mode only work over HTTPS (all major static hosts provide it).
-3. **Don't cache `sw.js` long-term** — serve `/sw.js` with `Cache-Control: no-cache` so app updates reach users (Netlify and Vercel do this by default for non-hashed files; check other hosts).
+Live at **https://basteglobalmarkets.in**, hosted on GitHub Pages.
+
+- **Deploys are automatic.** Every push to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes `dist/`. Watch progress in the repo's **Actions** tab (about 1–2 minutes). You can also re-run it manually from there.
+- **Domain** lives in `public/CNAME`, `vite.config.js`, `.github/workflows/deploy.yml`, `public/robots.txt` and `public/sitemap.xml`. Change all five together if it ever moves.
+- **DNS** (at the domain registrar): four `A` records for `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`, and a `CNAME` for `www` → `digikaragir.github.io`.
+- **HTTPS** is required for the installable app and offline mode. Keep **Settings → Pages → Enforce HTTPS** ticked.
+- **App updates:** GitHub Pages caches files for 10 minutes, so after a deploy, visitors (and the installed app) pick up the new version within about 10 minutes.
 
 ## Project structure
 
